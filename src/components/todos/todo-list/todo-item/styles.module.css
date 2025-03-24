@@ -1,0 +1,29 @@
+.item {
+  display: flex;
+  gap: 15px;
+
+  padding: 5px;
+
+  border-radius: 15px;
+  border: 2px solid #fff;
+}
+
+.text {
+  text-align: start;
+
+  flex-grow: 1;
+}
+
+.status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.completed {
+  background-color: #0cf72b;
+}
+
+.not-completed {
+  background-color: #f71111;
+}
