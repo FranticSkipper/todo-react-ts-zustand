@@ -1,16 +1,22 @@
 import { create } from 'zustand';
-import { UTodoStatus } from '../models/TodoStatus';
-import { ITodoItem } from '../models/TodoItem';
-import { ITodosStore } from '../models/TodosStore';
+import { ITodoItem } from '../types/TodoItem';
+import { ITodosStore } from '../types/TodosStore';
+import { TFilterStatus } from '../types/TodoFIlterStatus';
+import { UTodoStatus } from '../types/TodoStatus';
 
 const useTodos = create<ITodosStore>((set) => ({
   todos: [
     {
       id: 0,
       text: 'Сделай краткую запись в Notion/Trello:',
-      status: UTodoStatus['not-completed'],
+      status: 'active',
     },
   ],
+  currentFilterStatus: 'all',
+  changeFilterStatus: (newStatus: TFilterStatus) =>
+    set(() => ({
+      currentFilterStatus: newStatus,
+    })),
   add: (todo: { text: string }) =>
     set((state) => ({
       todos: [
@@ -18,7 +24,7 @@ const useTodos = create<ITodosStore>((set) => ({
         {
           id: state.todos.length ? state.todos.at(-1)!.id + 1 : 0,
           text: todo.text,
-          status: UTodoStatus['not-completed'],
+          status: 'active',
         },
       ],
     })),

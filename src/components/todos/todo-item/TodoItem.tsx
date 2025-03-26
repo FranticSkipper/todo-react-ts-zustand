@@ -1,6 +1,6 @@
-import { ITodoItem } from '../../../models/TodoItem';
-import { UTodoStatus } from '../../../models/TodoStatus';
 import useTodos from '../../../store/todosStore';
+import { ITodoItem } from '../../../types/TodoItem';
+import { UTodoStatus } from '../../../types/TodoStatus';
 import styles from './styles.module.css';
 
 interface IProps {
@@ -14,15 +14,11 @@ const TodoItem: React.FC<IProps> = function ({ todo }) {
   return (
     <li className={styles.item}>
       <p className={styles.text}>{todo.text}</p>
-      <p
-        className={`${styles.status} ${todo.status === UTodoStatus.completed ? styles.completed : styles['not-completed']}`}
-      ></p>
+      <p>{todo.status}</p>
       <button
         onClick={() => {
           const newStatus: UTodoStatus =
-            todo.status === UTodoStatus.completed
-              ? UTodoStatus['not-completed']
-              : UTodoStatus.completed;
+            todo.status === 'completed' ? 'active' : 'completed';
 
           changeStatus(todo.id, newStatus);
         }}
