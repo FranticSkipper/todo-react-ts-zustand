@@ -4,7 +4,7 @@ import TodoItem from '../todo-item/TodoItem';
 import styles from './styles.module.css';
 import { ITodoItem } from '../../../types/TodoItem';
 import useTodosFilter from '../../../store/todosFilterStore';
-import getFilteredTodos from '../../ui/getFilteredTodos';
+import getFilteredTodos from '../../../features/getFilteredTodos';
 
 interface IProps {
   inputRef: React.RefObject<HTMLInputElement>;

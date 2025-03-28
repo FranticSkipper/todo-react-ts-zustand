@@ -1,5 +1,5 @@
-import { TFilterStatus } from '../../types/TodoFIlterStatus';
-import { ITodoItem } from '../../types/TodoItem';
+import { TFilterStatus } from '../types/TodoFIlterStatus';
+import { ITodoItem } from '../types/TodoItem';
 
 export default function getFilteredTodos(
   todos: ITodoItem[],
