@@ -1,5 +1,6 @@
 import { TFilterStatus } from '../../../types/TodoFIlterStatus';
 import FilterItem from './filter-item/FIlterItem';
+import styles from './styles.module.css';
 
 const filter: TFilterStatus[] = ['all', 'completed', 'active'];
 
@@ -9,7 +10,7 @@ export default function TodoFilter() {
   ));
   return (
     <div>
-      <ul>{filtersToRender}</ul>
+      <ul className={styles.list}>{filtersToRender}</ul>
     </div>
   );
 }

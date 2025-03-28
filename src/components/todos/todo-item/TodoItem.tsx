@@ -1,13 +1,15 @@
 import useTodos from '../../../store/todosStore';
 import { ITodoItem } from '../../../types/TodoItem';
 import { UTodoStatus } from '../../../types/TodoStatus';
+import Button from '../../ui/Button';
 import styles from './styles.module.css';
 
 interface IProps {
   todo: ITodoItem;
+  inputRef: React.RefObject<HTMLInputElement>;
 }
 
-const TodoItem: React.FC<IProps> = function ({ todo }) {
+const TodoItem: React.FC<IProps> = function ({ todo, inputRef }) {
   const deleteTodo = useTodos((state) => state.delete);
   const changeStatus = useTodos((state) => state.changeStatus);
 
@@ -15,7 +17,7 @@ const TodoItem: React.FC<IProps> = function ({ todo }) {
     <li className={styles.item}>
       <p className={styles.text}>{todo.text}</p>
       <p>{todo.status}</p>
-      <button
+      <Button
         onClick={() => {
           const newStatus: UTodoStatus =
             todo.status === 'completed' ? 'active' : 'completed';
@@ -24,14 +26,16 @@ const TodoItem: React.FC<IProps> = function ({ todo }) {
         }}
       >
         Change status
-      </button>
-      <button
+      </Button>
+
+      <Button
         onClick={() => {
+          inputRef.current.focus();
           deleteTodo(todo.id);
         }}
       >
         Delete
-      </button>
+      </Button>
     </li>
   );
 };

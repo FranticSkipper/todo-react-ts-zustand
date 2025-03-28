@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import useTodos from '../../../store/todosStore';
+import Button from '../../ui/Button';
+import Input from '../../ui/Input';
 
-export function TodoInput() {
+interface IProps {
+  inputRef: React.RefObject<HTMLInputElement>;
+}
+
+export function TodoInput({ inputRef }: IProps) {
   const [text, setText] = useState<string>('');
 
   const add = useTodos((state) => state.add);
@@ -23,10 +29,16 @@ export function TodoInput() {
   return (
     <form onSubmit={handleSubmit}>
       <p>
-        <input type="text" value={text} onInput={handleTextChange} />
+        <Input
+          ref={inputRef}
+          type="text"
+          value={text}
+          onInput={handleTextChange}
+          placeholder="Добавить новую задачу..."
+        />
       </p>
 
-      <button type="submit">Add new</button>
+      <Button type="submit">Add new</Button>
     </form>
   );
 }

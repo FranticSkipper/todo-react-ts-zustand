@@ -1,3 +1,7 @@
 .active {
   border-color: rgb(218, 2, 2);
 }
+
+.btn {
+  text-transform: capitalize;
+}

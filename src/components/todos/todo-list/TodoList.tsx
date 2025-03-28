@@ -3,23 +3,24 @@ import useTodos from '../../../store/todosStore';
 import TodoItem from '../todo-item/TodoItem';
 import styles from './styles.module.css';
 import { ITodoItem } from '../../../types/TodoItem';
+import useTodosFilter from '../../../store/todosFilterStore';
+import getFilteredTodos from '../../ui/getFilteredTodos';
 
-const TodoList = memo(function () {
+interface IProps {
+  inputRef: React.RefObject<HTMLInputElement>;
+}
+
+const TodoList = memo(function ({ inputRef }: IProps) {
   const todos = useTodos((state) => state.todos);
-  const currentFilter = useTodos((state) => state.currentFilterStatus);
-
-  const getFilteredTodos = useCallback(filterTodos, [todos, currentFilter]);
-  const filteredTodos = currentFilter === 'all' ? todos : getFilteredTodos();
+  const currentFilter = useTodosFilter((state) => state.currentFilterStatus);
+  const getFilteredTodosCB = useCallback(() => {
+    return getFilteredTodos(todos, currentFilter);
+  }, [todos, currentFilter]);
+  const filteredTodos = currentFilter === 'all' ? todos : getFilteredTodosCB();
 
   const todosToRender = filteredTodos.map((todo: ITodoItem) => (
-    <TodoItem key={todo.id} todo={todo} />
+    <TodoItem key={todo.id} todo={todo} inputRef={inputRef} />
   ));
-
-  function filterTodos() {
-    return todos.filter((todo) => {
-      return todo.status === currentFilter;
-    });
-  }
 
   return <ul className={styles.list}>{todosToRender}</ul>;
 });
